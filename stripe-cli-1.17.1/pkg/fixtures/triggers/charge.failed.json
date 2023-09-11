@@ -1,0 +1,20 @@
+{
+  "_meta": {
+    "template_version": 0
+  },
+  "fixtures": [
+    {
+      "name": "payment_intent",
+      "expected_error_type": "card_error",
+      "path": "/v1/payment_intents",
+      "method": "post",
+      "params": {
+        "amount": 100,
+        "currency": "usd",
+        "payment_method": "pm_card_visa_chargeDeclined",
+        "confirm": true,
+        "description": "(created by Stripe CLI)"
+      }
+    }
+  ]
+}
