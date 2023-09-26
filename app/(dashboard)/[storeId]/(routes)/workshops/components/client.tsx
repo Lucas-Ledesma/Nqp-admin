@@ -5,15 +5,15 @@ import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { ProductColumn, columns } from "./columns";
+import { WorkshopColumn, columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 import { ApiList } from "@/components/ui/api-list";
 
-interface ProductClientProps {
-  data: ProductColumn[];
+interface WorkshopClientProps {
+  data: WorkshopColumn[];
 }
 
-export const ProductClient: React.FC<ProductClientProps> = ({ data }) => {
+export const WorkshopClient: React.FC<WorkshopClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
@@ -21,23 +21,23 @@ export const ProductClient: React.FC<ProductClientProps> = ({ data }) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Productos ${data.length}`}
-          description="Maneja los productos"
+          title={`Talleres ${data.length}`}
+          description="Maneja los talleres"
         />
         <Button
           onClick={() => {
-            router.push(`/${params.storeId}/products/new`);
+            router.push(`/${params.storeId}/workshops/new`);
           }}
         >
           <Plus className="mr-2 w-4 h-4" />
-          Add New
+          Añadir taller
         </Button>
       </div>
       <Separator />
       <DataTable searchKey="name" columns={columns} data={data} />
-      <Heading title="API" description="API calls for Products" />
+      <Heading title="API" description="API para talleres" />
       <Separator />
-      <ApiList entityName="products" entityIdName="productId" />
+      <ApiList entityName="workshops" entityIdName="workshopId" />
     </>
   );
 };

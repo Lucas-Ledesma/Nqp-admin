@@ -13,29 +13,9 @@ export default function MainNav({
 
   const routes = [
     {
-      href: `/${params.storeId}`,
-      label: "Overwiew",
-      active: pathname === `/${params.storeId}`,
-    },
-    {
-      href: `/${params.storeId}/billboards`,
-      label: "Billboards",
-      active: pathname === `/${params.storeId}/billboards`,
-    },
-    {
       href: `/${params.storeId}/categories`,
       label: "Categories",
       active: pathname === `/${params.storeId}/categories`,
-    },
-    {
-      href: `/${params.storeId}/sizes`,
-      label: "Sizes",
-      active: pathname === `/${params.storeId}/sizes`,
-    },
-    {
-      href: `/${params.storeId}/colors`,
-      label: "Colors",
-      active: pathname === `/${params.storeId}/colors`,
     },
     {
       href: `/${params.storeId}/products`,
@@ -43,9 +23,9 @@ export default function MainNav({
       active: pathname === `/${params.storeId}/products`,
     },
     {
-      href: `/${params.storeId}/orders`,
-      label: "Orders",
-      active: pathname === `/${params.storeId}/orders`,
+      href: `/${params.storeId}/workshops`,
+      label: "Talleres",
+      active: pathname === `/${params.storeId}/workshops`,
     },
     {
       href: `/${params.storeId}/settings`,

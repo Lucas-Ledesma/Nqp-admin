@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { storeId: string; productId: string } }
+  { params }: { params: { storeId: string; workshopId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -38,9 +38,9 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    await prismadb.product.update({
+    await prismadb.workshop.update({
       where: {
-        id: params.productId,
+        id: params.workshopId,
       },
       data: {
         name,
@@ -52,8 +52,8 @@ export async function PATCH(
       },
     });
 
-    const product = await prismadb.product.update({
-      where: { id: params.productId },
+    const workshop = await prismadb.workshop.update({
+      where: { id: params.workshopId },
       data: {
         images: {
           createMany: {
@@ -63,16 +63,16 @@ export async function PATCH(
       },
     });
 
-    return NextResponse.json(product);
+    return NextResponse.json(workshop);
   } catch (error) {
-    console.log("[PRODUCT_PATCH]", error);
+    console.log("[WORKSHOP_PATCH]", error);
     return new NextResponse("internal error", { status: 500 });
   }
 }
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { storeId: string; productId: string } }
+  { params }: { params: { storeId: string; workshopId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -81,7 +81,7 @@ export async function DELETE(
       return new NextResponse("Unauthenticated", { status: 401 });
     }
 
-    if (!params.productId) {
+    if (!params.workshopId) {
       return new NextResponse("Porduct id is required.", { status: 404 });
     }
 
@@ -93,23 +93,23 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const product = await prismadb.product.findUnique({
-      where: { id: params.productId },
+    const workshop = await prismadb.workshop.findUnique({
+      where: { id: params.workshopId },
     });
 
-    if (!product) {
+    if (!workshop) {
       return new NextResponse("Product not found", { status: 404 });
     }
 
-    const deletedProduct = await prismadb.product.delete({
+    const deletedWorkshop = await prismadb.workshop.delete({
       where: {
-        id: params.productId,
+        id: params.workshopId,
       },
     });
 
-    return NextResponse.json(deletedProduct);
+    return NextResponse.json(deletedWorkshop);
   } catch (error) {
-    console.log("[PRODUCT_DELETE]", error);
+    console.log("[WORKSHOP_DELETE]", error);
     return new NextResponse("internal error", { status: 500 });
   }
 }

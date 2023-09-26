@@ -4,7 +4,7 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-import { Category, ImageForProducts, Product } from "@prisma/client";
+import { Category, ImageForWorkshops, Workshop } from "@prisma/client";
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,10 +33,10 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 
-interface ProductFormProps {
+interface WorkshopFormProps {
   initialData:
-    | (Product & {
-        images: ImageForProducts[];
+    | (Workshop & {
+        images: ImageForWorkshops[];
       })
     | null;
   categories: Category[];
@@ -53,7 +53,7 @@ const formSchema = z.object({
 
 type SettingFormValue = z.infer<typeof formSchema>;
 
-export const ProductForm: React.FC<ProductFormProps> = ({
+export const WorkshopForm: React.FC<WorkshopFormProps> = ({
   initialData,
   categories,
 }) => {
@@ -62,10 +62,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? "Edit Product" : "Create Product";
-  const description = initialData ? "Edit a Product" : "Add a new Product";
-  const toastMessage = initialData ? "Product updated." : "Product Created.";
-  const action = initialData ? "Save Changes" : "Create";
+  const title = initialData ? "Editar los Talleres" : "Crear un Taller";
+  const description = initialData ? "Edita un Taller" : "Añade un Taller";
+  const toastMessage = initialData ? "Taller actualizado." : "Taller creado.";
+  const action = initialData ? "Guardar cambios" : "Añadir";
 
   const form = useForm<SettingFormValue>({
     resolver: zodResolver(formSchema),
@@ -85,14 +85,14 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       setLoading(true);
       if (initialData) {
         await axios.patch(
-          `/api/${params.storeId}/products/${params.productId}`,
+          `/api/${params.storeId}/workshops/${params.productId}`,
           data
         );
       } else {
-        await axios.post(`/api/${params.storeId}/products`, data);
+        await axios.post(`/api/${params.storeId}/workshops`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/products`);
+      router.push(`/${params.storeId}/workshops`);
       toast.success(toastMessage);
     } catch (error) {
       toast.error("algo salio mal.");
@@ -104,9 +104,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/products/${params.ProductId}`);
+      await axios.delete(
+        `/api/${params.storeId}/workshops/${params.ProductId}`
+      );
       router.refresh();
-      router.push(`/${params.storeId}/products`);
+      router.push(`/${params.storeId}/workshops`);
       toast.success("Product deleted.");
     } catch (error) {
       toast.error("Something went wrong.");
@@ -150,7 +152,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             name="images"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Images</FormLabel>
+                <FormLabel>Imagenes</FormLabel>
                 <FormControl>
                   <ImageUpload
                     value={field.value.map((image) => image.url)}
@@ -175,11 +177,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nombre</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Product Name"
+                      placeholder="Nombre del Taller"
                       {...field}
                     />
                   </FormControl>
@@ -192,7 +194,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               name="categoryId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>Categoria</FormLabel>
                   <Select
                     disabled={loading}
                     onValueChange={field.onChange}
@@ -203,7 +205,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       <SelectTrigger>
                         <SelectValue
                           defaultValue={field.value}
-                          placeholder="Select a Category."
+                          placeholder="Selecciona una Categoria."
                         />
                       </SelectTrigger>
                     </FormControl>
@@ -224,11 +226,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Descripción</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Product Description"
+                      placeholder="Descripción del Taller"
                       {...field}
                     />
                   </FormControl>
@@ -252,7 +254,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <div className="space-y-1 leading-none">
                     <FormLabel>Featured</FormLabel>
                     <FormDescription>
-                      This product will appear on the home page.
+                      Este taller aparecera en la pagina principal.
                     </FormDescription>
                   </div>
                 </FormItem>
@@ -273,7 +275,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <div className="space-y-1 leading-none">
                     <FormLabel>Archived</FormLabel>
                     <FormDescription>
-                      This product will not appear anywhere in the store.
+                      Este taller no aparecera en la pagina principal.
                     </FormDescription>
                   </div>
                 </FormItem>

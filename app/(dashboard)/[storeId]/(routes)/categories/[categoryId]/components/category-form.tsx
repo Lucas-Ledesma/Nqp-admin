@@ -4,7 +4,7 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-import { Billboard, Category } from "@prisma/client";
+import { Category } from "@prisma/client";
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,30 +22,20 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alert-modal";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import ImageUpload from "@/components/ui/image-upload";
 
 interface CategoryFormProps {
   initialData: Category | null;
-  billboards: Billboard[];
 }
 
 const formSchema = z.object({
   name: z.string().min(1),
-  billboardId: z.string().min(1),
+  imageUrl: z.string().min(1),
 });
 
 type SettingFormValue = z.infer<typeof formSchema>;
 
-export const CategoryForm: React.FC<CategoryFormProps> = ({
-  initialData,
-  billboards,
-}) => {
+export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -60,7 +50,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       name: "",
-      billboardId: "",
+      imageUrl: "",
     },
   });
 
@@ -134,6 +124,24 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Background Image</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      value={field.value ? [field.value] : []}
+                      disabled={loading}
+                      onChange={(url) => field.onChange(url)}
+                      onRemove={() => field.onChange("")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
@@ -145,38 +153,6 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="billboardId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Billboard</FormLabel>
-                  <Select
-                    disabled={loading}
-                    onValueChange={field.onChange}
-                    value={field.value}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          defaultValue={field.value}
-                          placeholder="Select a Billboard."
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {billboards.map((billboard) => (
-                        <SelectItem key={billboard.id} value={billboard.id}>
-                          {billboard.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
                   <FormMessage />
                 </FormItem>
               )}

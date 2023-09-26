@@ -40,7 +40,7 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const product = await prismadb.product.create({
+    const workshop = await prismadb.workshop.create({
       data: {
         name,
         description,
@@ -56,9 +56,9 @@ export async function POST(
       },
     });
 
-    return NextResponse.json(product);
+    return NextResponse.json(workshop);
   } catch (error) {
-    console.log("[PRODUCT: POST]", error);
+    console.log("[WORKSHOP: POST]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
@@ -76,7 +76,7 @@ export async function GET(
       return new NextResponse("Store id is required", { status: 400 });
     }
 
-    const products = await prismadb.product.findMany({
+    const workshop = await prismadb.workshop.findMany({
       where: {
         storeId: params.storeId,
         categoryId,
@@ -87,9 +87,9 @@ export async function GET(
       orderBy: { createdAt: "desc" },
     });
 
-    return NextResponse.json(products);
+    return NextResponse.json(workshop);
   } catch (error) {
-    console.log("[PRODUCTS: GET]", error);
+    console.log("[WORKSHOP: GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

@@ -1,16 +1,16 @@
 import { format } from "date-fns";
 import prismadb from "@/lib/prismadb";
-import { ProductClient } from "./components/client";
-import { ProductColumn } from "./components/columns";
+import { WorkshopClient } from "./components/client";
+import { WorkshopColumn } from "../workshops/components/columns";
 
-const ProductPage = async ({ params }: { params: { storeId: string } }) => {
-  const products = await prismadb.product.findMany({
+const WorkshopPage = async ({ params }: { params: { storeId: string } }) => {
+  const workshops = await prismadb.workshop.findMany({
     where: { storeId: params.storeId },
     include: { category: true },
     orderBy: { createdAt: "desc" },
   });
 
-  const formatedproduct: ProductColumn[] = products.map((item) => ({
+  const formatedWorkshop: WorkshopColumn[] = workshops.map((item) => ({
     id: item.id,
     name: item.name,
     isFeatured: item.isFeatured,
@@ -22,10 +22,10 @@ const ProductPage = async ({ params }: { params: { storeId: string } }) => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <ProductClient data={formatedproduct} />
+        <WorkshopClient data={formatedWorkshop} />
       </div>
     </div>
   );
 };
 
-export default ProductPage;
+export default WorkshopPage;
