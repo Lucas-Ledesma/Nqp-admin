@@ -22,7 +22,7 @@ export const ProductClient: React.FC<ProductClientProps> = ({ data }) => {
       <div className="flex items-center justify-between">
         <Heading
           title={`Productos ${data.length}`}
-          description="Maneja los productos"
+          description="Organiza tus productos"
         />
         <Button
           onClick={() => {
@@ -30,12 +30,12 @@ export const ProductClient: React.FC<ProductClientProps> = ({ data }) => {
           }}
         >
           <Plus className="mr-2 w-4 h-4" />
-          Add New
+          Nuevo producto
         </Button>
       </div>
       <Separator />
       <DataTable searchKey="name" columns={columns} data={data} />
-      <Heading title="API" description="API calls for Products" />
+      <Heading title="API" description="API endpoints para productos" />
       <Separator />
       <ApiList entityName="products" entityIdName="productId" />
     </>

@@ -14,27 +14,27 @@ export type WorkshopColumn = {
 
 export const columns: ColumnDef<WorkshopColumn>[] = [
   {
+    id: "actions",
+    cell: ({ row }) => <CellAction data={row.original} />,
+  },
+  {
     accessorKey: "name",
-    header: "Name",
+    header: "Nombre",
   },
   {
     accessorKey: "isArchived",
-    header: "Archived",
+    header: "Archivado",
   },
   {
     accessorKey: "isFeatured",
-    header: "Featured",
+    header: "En stock",
   },
   {
     accessorKey: "category",
-    header: "Category",
+    header: "Categoria",
   },
   {
     accessorKey: "createdAt",
-    header: "Date",
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => <CellAction data={row.original} />,
+    header: "Fecha de creación",
   },
 ];

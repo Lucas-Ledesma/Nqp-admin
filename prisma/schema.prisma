@@ -6,90 +6,90 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
-
 model Store {
-  id        String  @id @default(uuid())
-  name      String 
-  userId    String
-  categories   Category[] @relation("StoreToCategory")
-  products      Product[] @relation("StoreToProduct")
-  workshops     Workshop[] @relation("StoreToWorkshop")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id         String     @id @default(uuid())
+  name       String
+  userId     String
+  categories Category[] @relation("StoreToCategory")
+  products   Product[]  @relation("StoreToProduct")
+  workshops  Workshop[] @relation("StoreToWorkshop")
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 }
 
 model Category {
-  id           String  @id @default(uuid())
-  storeId      String
-  store        Store @relation("StoreToCategory", fields: [storeId], references: [id])
-  product      Product[] @relation("CategoryToProduct")
-  workshop     Workshop[] @relation("CategoryToWorkshop")
-  imageUrl     String
-  name         String
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id        String     @id @default(uuid())
+  storeId   String
+  store     Store      @relation("StoreToCategory", fields: [storeId], references: [id])
+  product   Product[]  @relation("CategoryToProduct")
+  workshop  Workshop[] @relation("CategoryToWorkshop")
+  imageUrl  String
+  name      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 
   @@index([storeId])
 }
 
 model Product {
-  id            String  @id @default(uuid())
-  storeId       String
-  store         Store @relation("StoreToProduct", fields: [storeId], references: [id])
-  categoryId    String
-  category      Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
-  name          String
-  isFeatured    Boolean @default(false)
-  isArchived    Boolean @default(false)
-  description   String
-  images        ImageForProducts[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id          String             @id @default(uuid())
+  storeId     String
+  store       Store              @relation("StoreToProduct", fields: [storeId], references: [id])
+  categoryId  String
+  category    Category           @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  name        String
+  isFeatured  Boolean            @default(false)
+  isArchived  Boolean            @default(false)
+  description String
+  images      ImageForProducts[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
 
   @@index([storeId])
   @@index([categoryId])
 }
 
 model Workshop {
-  id            String  @id @default(uuid())
-  storeId       String
-  store         Store @relation("StoreToWorkshop", fields: [storeId], references: [id])
-  categoryId    String
-  category      Category @relation("CategoryToWorkshop", fields: [categoryId], references: [id])
-  name          String
-  isFeatured    Boolean @default(false)
-  isArchived    Boolean @default(false)
-  description   String
-  images        ImageForWorkshops[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id          String              @id @default(uuid())
+  storeId     String
+  store       Store               @relation("StoreToWorkshop", fields: [storeId], references: [id])
+  categoryId  String
+  category    Category            @relation("CategoryToWorkshop", fields: [categoryId], references: [id])
+  name        String
+  isFeatured  Boolean             @default(false)
+  isArchived  Boolean             @default(false)
+  description String
+  images      ImageForWorkshops[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
 
   @@index([storeId])
   @@index([categoryId])
 }
 
-
 model ImageForProducts {
-  id           String  @id @default(uuid())
-  producrId    String
-  product      Product @relation(fields: [producrId], references: [id], onDelete: Cascade)
-  url          String
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id        String   @id @default(uuid())
+  producrId String
+  product   Product  @relation(fields: [producrId], references: [id], onDelete: Cascade)
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([producrId])
 }
 
 model ImageForWorkshops {
-  id           String  @id @default(uuid())
-  workshopId    String
-  workshop     Workshop @relation(fields: [workshopId], references: [id], onDelete: Cascade)
-  url          String
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id         String   @id @default(uuid())
+  workshopId String
+  workshop   Workshop @relation(fields: [workshopId], references: [id], onDelete: Cascade)
+  url        String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
   @@index([workshopId])
 }

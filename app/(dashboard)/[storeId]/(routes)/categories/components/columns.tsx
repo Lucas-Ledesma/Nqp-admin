@@ -11,15 +11,15 @@ export type CategoryColumn = {
 
 export const columns: ColumnDef<CategoryColumn>[] = [
   {
+    id: "actions",
+    cell: ({ row }) => <CellAction data={row.original} />,
+  },
+  {
     accessorKey: "name",
-    header: "Name",
+    header: "Nombre",
   },
   {
     accessorKey: "createdAt",
-    header: "Date",
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => <CellAction data={row.original} />,
+    header: "Fecha de creación",
   },
 ];

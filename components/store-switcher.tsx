@@ -76,17 +76,17 @@ export default function StoreSwitcher({
           aria-label="Select a store"
           className={cn("w-[200px] justify-between", className)}
         >
-          <StoreIcon className="mr-2 h-4 w-4 " />
-          {currentStore?.label}
+          <StoreIcon className="mr-2 h-4 w-4" />
+          <p className="truncate">{currentStore?.label}</p>
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandList>
-            <CommandInput placeholder="Search store..." />
-            <CommandEmpty>No store found.</CommandEmpty>
-            <CommandGroup heading="Stores">
+            <CommandInput placeholder="Busca tu tienda..." />
+            <CommandEmpty>No se cencontro ninguna tienda.</CommandEmpty>
+            <CommandGroup heading="Tiendas">
               {formatedItems.map((store) => (
                 <CommandItem
                   key={store.value}
@@ -117,7 +117,7 @@ export default function StoreSwitcher({
                 }}
               >
                 <PlusCircle className="me-2 h-5 w-5" />
-                Create Store
+                Crear una tienda
               </CommandItem>
             </CommandGroup>
           </CommandList>

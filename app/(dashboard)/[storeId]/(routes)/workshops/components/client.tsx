@@ -22,7 +22,7 @@ export const WorkshopClient: React.FC<WorkshopClientProps> = ({ data }) => {
       <div className="flex items-center justify-between">
         <Heading
           title={`Talleres ${data.length}`}
-          description="Maneja los talleres"
+          description="Organiza tus talleres"
         />
         <Button
           onClick={() => {
@@ -30,12 +30,12 @@ export const WorkshopClient: React.FC<WorkshopClientProps> = ({ data }) => {
           }}
         >
           <Plus className="mr-2 w-4 h-4" />
-          Añadir taller
+          Nuevo taller
         </Button>
       </div>
       <Separator />
       <DataTable searchKey="name" columns={columns} data={data} />
-      <Heading title="API" description="API para talleres" />
+      <Heading title="API" description="API endpoint para talleres" />
       <Separator />
       <ApiList entityName="workshops" entityIdName="workshopId" />
     </>
