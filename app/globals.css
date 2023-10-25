@@ -7,6 +7,10 @@ body,
 :root {
   height: 100%;
 }
+
+body{
+  pointer-events: auto!important;
+}
  
 @layer base {
   :root {

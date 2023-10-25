@@ -16,7 +16,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const formSchema = z.object({
@@ -51,8 +51,8 @@ export const StoreModal = () => {
 
   return (
     <Modal
-      title="Create Store"
-      description="Add new store to manage products and categories"
+      title="Crea tu tienda"
+      description="Añade tu primera tienda."
       isOpen={storeModal.isOpen}
       onClose={storeModal.onClose}
     >
@@ -65,7 +65,7 @@ export const StoreModal = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Nombre</FormLabel>
                     <FormControl>
                       <Input
                         disabled={loading}
@@ -83,10 +83,10 @@ export const StoreModal = () => {
                   variant="outline"
                   onClick={storeModal.onClose}
                 >
-                  Cancel
+                  Cancelar
                 </Button>
                 <Button disabled={loading} type="submit">
-                  Continue
+                  Continuar
                 </Button>
               </div>
             </form>

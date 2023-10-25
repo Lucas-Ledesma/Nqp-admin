@@ -28,17 +28,17 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("el id del producto fue copiado");
+    toast.success("el id del taller fue copiado");
   };
 
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/products/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/workshops/${data.id}`);
       router.refresh();
-      toast.success("Product deleted.");
+      toast.success("Taller eliminado.");
     } catch (error) {
-      toast.error("Something wnet wrong.");
+      toast.error("Algo salio mal.");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -56,15 +56,15 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8p-0">
-            <span className="sr-only">Open menu</span>
+            <span className="sr-only">Menu</span>
             <MoreHorizontal />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem onClick={() => onCopy(data.id)}>
             <Copy className="mr-2 h-4 w-4" />
-            Copi Id
+            Copiar el ID
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
@@ -72,11 +72,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             }
           >
             <Edit className="mr-2 h-4 w-4" />
-            Update
+            Actualizar
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4" />
-            Delete
+            Eliminar
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

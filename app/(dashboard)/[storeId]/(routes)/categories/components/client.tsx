@@ -21,7 +21,7 @@ export const CategoryClient: React.FC<CategoryClientProps> = ({ data }) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Categories ${data.length}`}
+          title={`Categorias ${data.length}`}
           description="Organiza tus categorias"
         />
         <Button
