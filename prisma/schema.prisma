@@ -12,26 +12,26 @@ datasource db {
 }
 
 model Store {
-  id         String     @id @default(uuid())
-  name       String
-  userId     String
-  categories Category[] @relation("StoreToCategory")
-  products   Product[]  @relation("StoreToProduct")
-  workshops  Workshop[] @relation("StoreToWorkshop")
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id              String           @id @default(uuid())
+  name            String
+  userId          String
+  categories      Category[]       @relation("StoreToCategory")
+  products        Product[]        @relation("StoreToProduct")
+  produtcsFroSell ProductForSell[] @relation("StoreToProductForSell")
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 }
 
 model Category {
-  id        String     @id @default(uuid())
-  storeId   String
-  store     Store      @relation("StoreToCategory", fields: [storeId], references: [id])
-  product   Product[]  @relation("CategoryToProduct")
-  workshop  Workshop[] @relation("CategoryToWorkshop")
-  imageUrl  String
-  name      String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id              String           @id @default(uuid())
+  storeId         String
+  store           Store            @relation("StoreToCategory", fields: [storeId], references: [id])
+  product         Product[]        @relation("CategoryToProduct")
+  produtcsFroSell ProductForSell[] @relation("CategoryToProductForSell")
+  imageUrl        String
+  name            String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 
   @@index([storeId])
 }
@@ -54,24 +54,6 @@ model Product {
   @@index([categoryId])
 }
 
-model Workshop {
-  id          String              @id @default(uuid())
-  storeId     String
-  store       Store               @relation("StoreToWorkshop", fields: [storeId], references: [id])
-  categoryId  String
-  category    Category            @relation("CategoryToWorkshop", fields: [categoryId], references: [id])
-  name        String
-  isFeatured  Boolean             @default(false)
-  isArchived  Boolean             @default(false)
-  description String
-  images      ImageForWorkshops[]
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
-
-  @@index([storeId])
-  @@index([categoryId])
-}
-
 model ImageForProducts {
   id        String   @id @default(uuid())
   producrId String
@@ -83,13 +65,36 @@ model ImageForProducts {
   @@index([producrId])
 }
 
-model ImageForWorkshops {
-  id         String   @id @default(uuid())
-  workshopId String
-  workshop   Workshop @relation(fields: [workshopId], references: [id], onDelete: Cascade)
-  url        String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+model ImageForProductsForSell {
+  id               String         @id @default(uuid())
+  productForSellId String
+  productForSell   ProductForSell @relation(fields: [productForSellId], references: [id], onDelete: Cascade)
+  url              String
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
 
-  @@index([workshopId])
+  @@index([productForSellId])
+}
+
+model ProductForSell {
+  id          String                    @id @default(uuid())
+  storeId     String
+  store       Store                     @relation("StoreToProductForSell", fields: [storeId], references: [id])
+  categoryId  String
+  category    Category                  @relation("CategoryToProductForSell", fields: [categoryId], references: [id])
+  name        String
+  isFeatured  Boolean                   @default(false)
+  isArchived  Boolean                   @default(false)
+  description String
+  weight      Int
+  length      Int
+  height      Int
+  widht       Int
+  price       Decimal
+  images      ImageForProductsForSell[]
+  createdAt   DateTime                  @default(now())
+  updatedAt   DateTime                  @updatedAt
+
+  @@index([storeId])
+  @@index([categoryId])
 }
