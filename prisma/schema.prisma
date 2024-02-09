@@ -89,7 +89,7 @@ model ProductForSell {
   weight      Int
   length      Int
   height      Int
-  widht       Int
+  width       Int
   price       Decimal
   images      ImageForProductsForSell[]
   createdAt   DateTime                  @default(now())

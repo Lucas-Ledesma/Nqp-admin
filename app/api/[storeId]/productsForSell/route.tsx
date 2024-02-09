@@ -19,7 +19,7 @@ export async function POST(
 			length,
 			weight,
 			height,
-			widht,
+			width,
 			price,
 		} = body
 
@@ -80,7 +80,7 @@ export async function POST(
 				isFeatured,
 				height,
 				length,
-				widht,
+				width,
 				weight,
 				price,
 				isArchived,

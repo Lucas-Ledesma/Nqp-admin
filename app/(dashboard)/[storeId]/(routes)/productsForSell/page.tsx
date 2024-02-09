@@ -25,7 +25,7 @@ const ProductForSellPage = async ({
 			category: item.category.name,
 			height: item.height,
 			length: item.length,
-			widht: item.widht,
+			width: item.width,
 			weight: item.weight,
 			price: formatter.format(item.price.toNumber()),
 			createdAt: format(item.createdAt, 'MMMM do, YYY'),

@@ -24,7 +24,7 @@ export async function PATCH(
 			isArchived,
 			height,
 			length,
-			widht,
+			width,
 			weight,
 			price,
 		} = body
@@ -77,7 +77,7 @@ export async function PATCH(
 				height,
 				length,
 				weight,
-				widht,
+				width,
 				price,
 			},
 		})
@@ -152,7 +152,7 @@ export async function DELETE(
 		}
 
 		const deletedProductForSell =
-			await prismadb.product.delete({
+			await prismadb.productForSell.delete({
 				where: {
 					id: params.productForSellId,
 				},

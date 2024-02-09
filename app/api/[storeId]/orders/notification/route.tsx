@@ -1,14 +1,17 @@
-import { NextApiRequest } from 'next'
 import { NextResponse } from 'next/server'
 import mercadopago from 'mercadopago'
 
 export async function POST(req: Request) {
 	const body = await req.json()
 
+	mercadopago.configure({
+		access_token: process.env.MERCADO_PAGO_TOKEN!,
+	})
+
 	console.log('body', body)
 
 	if (body.action === 'payment.created') {
-		const payment = await mercadopago.payment.findById(
+		let payment = await mercadopago.payment.get(
 			Number(body.data.id)
 		)
 

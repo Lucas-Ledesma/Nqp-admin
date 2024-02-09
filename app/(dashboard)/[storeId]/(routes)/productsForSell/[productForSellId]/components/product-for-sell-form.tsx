@@ -53,7 +53,7 @@ const formSchema = z.object({
 	description: z.string().min(1).optional(),
 	height: z.coerce.number().min(1),
 	length: z.coerce.number().min(1),
-	widht: z.coerce.number().min(1),
+	width: z.coerce.number().min(1),
 	price: z.coerce.number().min(1),
 	weight: z.coerce.number().min(1),
 	categoryId: z.string().min(1),
@@ -99,7 +99,7 @@ export const ProductForSellForm: React.FC<
 					isArchived: false,
 					height: 0,
 					length: 0,
-					widht: 0,
+					width: 0,
 					price: 0,
 			  },
 	})
@@ -292,7 +292,7 @@ export const ProductForSellForm: React.FC<
 						/>
 						<FormField
 							control={form.control}
-							name='widht'
+							name='width'
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Ancho (en cm)</FormLabel>

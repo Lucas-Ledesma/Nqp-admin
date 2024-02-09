@@ -14,7 +14,7 @@ export type ProductForSellColumn = {
 	height: number
 	length: number
 	weight: number
-	widht: number
+	width: number
 }
 
 export const columns: ColumnDef<ProductForSellColumn>[] = [
@@ -35,7 +35,7 @@ export const columns: ColumnDef<ProductForSellColumn>[] = [
 		header: 'Largo',
 	},
 	{
-		accessorKey: 'widht',
+		accessorKey: 'width',
 		header: 'Ancho',
 	},
 	{
