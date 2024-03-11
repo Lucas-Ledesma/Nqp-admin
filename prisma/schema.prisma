@@ -87,7 +87,6 @@ model ProductForSell {
   isArchived  Boolean                   @default(false)
   description String
   weight      Int
-  length      Int
   height      Int
   width       Int
   price       Decimal

@@ -24,7 +24,6 @@ const ProductForSellPage = async ({
 			isArchived: item.isArchived,
 			category: item.category.name,
 			height: item.height,
-			length: item.length,
 			width: item.width,
 			weight: item.weight,
 			price: formatter.format(item.price.toNumber()),

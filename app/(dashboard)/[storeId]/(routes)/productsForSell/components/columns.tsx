@@ -12,7 +12,6 @@ export type ProductForSellColumn = {
 	createdAt: string
 	price: string
 	height: number
-	length: number
 	weight: number
 	width: number
 }
@@ -29,10 +28,6 @@ export const columns: ColumnDef<ProductForSellColumn>[] = [
 	{
 		accessorKey: 'height',
 		header: 'Altura',
-	},
-	{
-		accessorKey: 'length',
-		header: 'Largo',
 	},
 	{
 		accessorKey: 'width',
